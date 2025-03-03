@@ -13,7 +13,7 @@ export default function ContactForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://python-scripts-agent-1.onrender.com/make-call",
+        "https://python-scripts-agent-2.onrender.com/make-call",
         formData
       );
       setResponse(res.data.message);

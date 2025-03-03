@@ -13,7 +13,7 @@ export default function RealEstateForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://python-scripts-agent-1.onrender.com/state",
+        "https://python-scripts-agent-2.onrender.com/state",
         formData
       );
       setResponse(res.data.message);

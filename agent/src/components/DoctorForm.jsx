@@ -13,7 +13,7 @@ export default function DoctorForm() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://python-scripts-agent-1.onrender.com/doctor",
+        "https://python-scripts-agent-2.onrender.com/doctor",
         formData
       );
       setResponse(res.data.message);
