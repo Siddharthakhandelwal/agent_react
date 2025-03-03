@@ -1,66 +1,40 @@
-import { useState } from "react";
-import axios from "axios";
-import {make_vapi_call} from "./python_scripts/make_call.py"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ContactForm from "./components/ContactForm";
+import DoctorForm from "./components/DoctorForm";
+import RealEstateForm from "./components/RealEstateForm";
 
-export default function ContactForm() {
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
-  const [response, setResponse] = useState(null);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:8000/submit", formData);
-      setResponse(res.data.message);
-    } catch (error) {
-      setResponse("Error submitting form");
-    }
-  };
-
+function App() {
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-xl">
-      <h2 className="text-xl font-bold mb-4">Contact Form</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-2 border rounded mb-2"
-          required
-        />
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full p-2 border rounded mb-2"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded mb-2"
-          required
-        />
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
-      {response && (
-        <p className="mt-4 text-center text-green-600">{response}</p>
-      )}
-    </div>
+    <Router>
+      <nav>
+        <ul className="flex space-x-4 justify-center p-4 bg-gray-200">
+          <li>
+            <Link to="/" className="text-blue-500 hover:underline">
+              Contact
+            </Link>
+          </li>
+          <li>
+            <Link to="/doctor" className="text-blue-500 hover:underline">
+              Doctor
+            </Link>
+          </li>
+          <li>
+            <Link to="/real-estate" className="text-blue-500 hover:underline">
+              Real Estate
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <div className="container mx-auto p-4">
+        <Routes>
+          <Route path="/" element={<ContactForm />} />
+          <Route path="/doctor" element={<DoctorForm />} />
+          <Route path="/real-estate" element={<RealEstateForm />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
+
+export default App;
